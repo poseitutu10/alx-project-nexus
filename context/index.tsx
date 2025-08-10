@@ -8,7 +8,7 @@ interface MainContextProps {
   genreThumbId: number;
 }
 
-const MainContext = createContext<MainContextProps | null>(null);
+export const MainContext = createContext<MainContextProps | null>(null);
 
 const MainContextWrapper: React.FC<LayoutProps> = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);

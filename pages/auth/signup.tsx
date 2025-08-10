@@ -3,8 +3,7 @@ import AuthLayout from "@/components/layout/AuthLayout";
 import usePost from "@/hooks/usePost";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
-import toast from "react-hot-toast";
+import React, {  useState } from "react";
 import { BiHide, BiLoaderCircle, BiShow } from "react-icons/bi";
 
 interface LoginData {

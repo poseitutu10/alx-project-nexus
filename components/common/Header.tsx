@@ -9,7 +9,7 @@ import { useMyContext } from "@/context";
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const { isAuthorized } = useMyContext();
+  const context = useMyContext();
   return (
     <header
       className={`bg-[#171717] text-white py-5 px-5 flex justify-between md:justify-center fixed inset-x-0 top-0 z-10`}
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
           <li className="cursor-pointer hover:opacity-90">
             <Link href={`/genre`}>Genre</Link>
           </li>
-          {!isAuthorized && (
+          {!context?.isAuthorized && (
             <>
               {" "}
               <li className="cursor-pointer hover:opacity-90">

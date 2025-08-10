@@ -1,11 +1,9 @@
 import Button from "@/components/common/Button";
 import AuthLayout from "@/components/layout/AuthLayout";
-import { useMyContext } from "@/context";
 import usePost from "@/hooks/usePost";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import { BiHide, BiLoaderCircle, BiShow } from "react-icons/bi";
 
 interface LoginData {
@@ -19,9 +17,7 @@ const Login: React.FC = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { postRequest, data, error, loading } = usePost();
-  
-  const router = useRouter();
+  const { postRequest, loading } = usePost();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -42,7 +38,6 @@ const Login: React.FC = () => {
       "Error occured whilst logging in",
       "/"
     );
-    
   };
 
   return (

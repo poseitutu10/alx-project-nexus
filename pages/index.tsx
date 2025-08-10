@@ -1,26 +1,20 @@
 import Button from "@/components/common/Button";
-import { background, moviesSlides } from "@/constants";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaCirclePlay } from "react-icons/fa6";
-import {
-  MdArrowBackIos,
-  MdArrowForwardIos,
-  MdWatchLater,
-} from "react-icons/md";
+import { MdWatchLater } from "react-icons/md";
 import { useRouter } from "next/router";
 import MovieCard from "@/components/common/MovieCard";
 import useFetch from "@/hooks/useFetch";
 import { Movie } from "@/interfaces";
 import { BiLoaderCircle } from "react-icons/bi";
 
-
 export default function Home() {
   const [index, setIndex] = useState<number>(0);
   const [showMovie, setShowMovie] = useState<any>([]);
   const router = useRouter();
 
-  const { data, loading, error } = useFetch("/movies/", {
+  const { data, loading } = useFetch("/movies/", {
     params: { page: index + 1 },
   });
   const movies = data?.data?.results;
@@ -44,21 +38,7 @@ export default function Home() {
             alt="background"
             className="w-full h-full -z-10 inset-x-0 inset-y-0 brightness-50"
           />
-          {/* <div className="arrows absolute inset-0 flex items-center justify-between p-5 -z-10">
-            <MdArrowBackIos
-              size={30}
-              color="white"
-              className="cursor-pointer z-50"
-              onClick={() => {
-                
-              }}
-            />
-            <MdArrowForwardIos
-              size={30}
-              color="white"
-              className="cursor-pointer z-50"
-            />
-          </div> */}
+
           <div className="text-white inset-x-0 flex flex-col absolute bottom-5 md:bottom-10">
             <div className="button-group flex gap-5 justify-start md:justify-center items-center px-5">
               <Button
@@ -127,58 +107,6 @@ export default function Home() {
           />
         </div>
       </div>
-
-      {/* <div className="movies-list text-white px-5 md:px-[5%] xl:px-[10%]  space-y-5">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Trending</h2>
-          <Link href={`/trending`}>
-            <span className="text-gray-300 flex items-center gap-2">
-              View All <GoArrowRight />
-            </span>
-          </Link>
-        </div>
-
-        <div className="movieCard grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-          {movies.map((data, index: number) => {
-            return <MovieCard data={data} index={index} />;
-          })}
-        </div>
-      </div>
-
-      <div className="movies-list text-white px-5 md:px-[5%] xl:px-[10%] space-y-5">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Genre</h2>
-          <Link href={`/genre`}>
-            <span className="text-gray-300 flex items-center gap-2">
-              View All <GoArrowRight />
-            </span>
-          </Link>
-        </div>
-        <div className="movieCard grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
-          {movies.map((data, index: number) => {
-            return <NewMovieCard />;
-          })}
-        </div>
-      </div>
-      <div className="movies-list text-white px-5 md:px-[5%] xl:px-[10%] space-y-5">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Recommended</h2>
-          <Link href={`/trending`}>
-            <span className="text-gray-300 flex items-center gap-2">
-              View All <GoArrowRight />
-            </span>
-          </Link>
-        </div>
-        <div className="movieCard grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-          {movies.map((data, index: number) => {
-            return <MovieCard data={data} index={index} />;
-          })}
-        </div>
-      </div>*/}
     </div>
   );
-}
-
-{
-  /* //<h2 className="text-xl">Movie Description</h2> */
 }

@@ -6,7 +6,7 @@ import React from "react";
 interface NewMovieCardProps {
   data: { title: string; poster_path: string,   id?: number; };
   index: number;
-  genre: string;
+  genre?: string;
 
 }
 

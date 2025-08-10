@@ -2,7 +2,7 @@ import NewMovieCard from "@/components/common/NewMovieCard";
 import { useMyContext } from "@/context";
 import useFetch from "@/hooks/useFetch";
 import axiosInstance from "@/services/axios";
-import React, { lazy, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiLoaderCircle } from "react-icons/bi";
 
 const Genre: React.FC = () => {
@@ -19,7 +19,7 @@ const Genre: React.FC = () => {
       const response = await axiosInstance.get(`/movies/genres/${id}/movies/`);
       setGenreData(response.data);
     } catch (err) {
-      console.log(error);
+      console.log(err);
     } finally {
       setGenreLoading(false);
     }
@@ -34,7 +34,7 @@ const Genre: React.FC = () => {
       context?.handleGenreThumbId(data?.data[0].tmdb_id)
       fetchData(data?.data[0].tmdb_id);
     }
-    // fetchData("");
+ 
   }, [genre, data]);
 
   console.log(genre);

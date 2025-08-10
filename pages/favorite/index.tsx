@@ -1,10 +1,9 @@
-import MovieCard from "@/components/common/MovieCard";
-import { movies } from "@/constants";
+
 import useFetch from "@/hooks/useFetch";
 import React from "react";
 
 const Favorite: React.FC = () => {
-  const { data, error, loading } = useFetch("/movies/favorites/", {
+  const { data } = useFetch("/movies/favorites/", {
     params: { page: 1 },
   });
   console.log(data?.data?.results);

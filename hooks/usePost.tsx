@@ -10,7 +10,7 @@ const usePost = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
   const router = useRouter();
-  const { handleIsAuthorized } = useMyContext();
+  const context = useMyContext();
 
   const postRequest = useCallback(
     async (
@@ -29,7 +29,7 @@ const usePost = () => {
           if (response?.data?.access && response?.data?.refresh) {
             localStorage.setItem("token", response?.data?.access);
             localStorage.setItem("refreshToken", response?.data?.refresh);
-            handleIsAuthorized(true);
+            context?.handleIsAuthorized(true);
           }
           router.push(redirectPath);
         } else {

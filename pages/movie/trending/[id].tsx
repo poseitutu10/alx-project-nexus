@@ -46,12 +46,13 @@ const TrendingMovie = () => {
   const router = useRouter();
   const query = router.query;
 
-  const { data, loading, error } = useFetch("/movies/trending/");
-  console.log(data?.data.find((content: any) => content.id == query.id), query)
+  const { data, loading } = useFetch("/movies/trending/");
 
   useEffect(() => {
     if (data) {
-      const findMovie: Movie = data?.data.find((content: any) => content.id == query.id);
+      const findMovie: Movie = data?.data.find(
+        (content: Movie) => content.id == Number(query.id)
+      );
       setMovie(findMovie);
     }
   }, [data]);

@@ -2,8 +2,7 @@ import Button from "@/components/common/Button";
 import AuthLayout from "@/components/layout/AuthLayout";
 import usePost from "@/hooks/usePost";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { BiHide, BiLoaderCircle, BiShow } from "react-icons/bi";
 
 interface LoginData {
@@ -19,9 +18,7 @@ const SignUp = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { postRequest, data, error, loading } = usePost();
-  const [createdResponse, setCreatedResponse] = useState<boolean>(false);
-  const router = useRouter();
+  const { postRequest, loading } = usePost();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -33,7 +30,6 @@ const SignUp = () => {
     });
   };
 
- 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     await postRequest(

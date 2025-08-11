@@ -1,15 +1,13 @@
 import Button from "@/components/common/Button";
 import MovieCard from "@/components/common/MovieCard";
-import { movies } from "@/constants";
 import useFetch from "@/hooks/useFetch";
 import { Movie } from "@/interfaces";
 import React, { useState } from "react";
 import { BiLoaderCircle } from "react-icons/bi";
 
 const Trending: React.FC = () => {
-  const [index, setIndex] = useState<number>(0);
   const [loadIndex, setLoadIndex] = useState(6);
-  const { data, loading, error } = useFetch("/movies/trending/");
+  const { data, loading } = useFetch("/movies/trending/");
 
   console.log(data);
 
@@ -29,8 +27,8 @@ const Trending: React.FC = () => {
       ) : (
         <>
           <div className="movieCard grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-            {movies?.slice(0, loadIndex)?.map((data: any, index: number) => (
-              <MovieCard data={data} path={`/movie/trending/${data?.id}`} />
+            {movies?.slice(0, loadIndex)?.map((data: Movie, index: number) => (
+              <MovieCard data={data} key={index} path={`/movie/trending/${data?.id}`} />
             ))}
           </div>
           <div className="options flex items-center justify-end gap-5">

@@ -5,12 +5,18 @@ import axiosInstance from "@/services/axios";
 import React, { useEffect, useState } from "react";
 import { BiLoaderCircle } from "react-icons/bi";
 
+interface GenreGetProps {
+  id: number;
+  tmdb_id: number;
+  name: string;
+}
+
 const Genre: React.FC = () => {
   const { data, error, loading } = useFetch("/movies/genres/");
   const [genreData, setGenreData] = useState([]);
   const [genreLoading, setGenreLoading] = useState<boolean>(false);
   const [genre, setGenre] = useState<string>("Action");
-  const context = useMyContext()
+  const context = useMyContext();
 
   const fetchData = async (id: number) => {
     setGenreLoading(true);
@@ -31,10 +37,9 @@ const Genre: React.FC = () => {
 
   useEffect(() => {
     if (data && genre == data?.data[0].name) {
-      context?.handleGenreThumbId(data?.data[0].tmdb_id)
+      context?.handleGenreThumbId(data?.data[0].tmdb_id);
       fetchData(data?.data[0].tmdb_id);
     }
- 
   }, [genre, data]);
 
   console.log(genre);
@@ -43,7 +48,7 @@ const Genre: React.FC = () => {
       <div className="flex flex-col  justify-between gap-5">
         <h2 className="text-xl font-semibold text-yellow-600">Genre</h2>
         <div className="genre-category grid grid-cols-3 md:grid-cols-5 xl:grid-cols-10 gap-1">
-          {data?.data.map((content: any, index: number) => (
+          {data?.data.map((content: GenreGetProps, index: number) => (
             <span
               key={index}
               className={`border text-white  p-1 text-sm cursor-pointer text-center ${
@@ -53,9 +58,12 @@ const Genre: React.FC = () => {
               }`}
               onClick={() => {
                 setGenre(content.name);
-                console.log(content.tmdb_id)
-                context?.handleGenreThumbId(content.tmdb_id)
-                localStorage.setItem("tmdb_id", JSON.stringify(content.tmdb_id))
+                console.log(content.tmdb_id);
+                context?.handleGenreThumbId(content.tmdb_id);
+                localStorage.setItem(
+                  "tmdb_id",
+                  JSON.stringify(content.tmdb_id)
+                );
                 fetchData(content.tmdb_id);
               }}
             >
@@ -76,7 +84,7 @@ const Genre: React.FC = () => {
       ) : (
         <div className="movieCard grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
           {genreData?.map((data, index: number) => (
-            <NewMovieCard data={data} index={index} genre={genre} />
+            <NewMovieCard data={data} key={index} index={index} genre={genre} />
           ))}
         </div>
       )}

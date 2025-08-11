@@ -1,11 +1,8 @@
 import { MovieCardProp } from "@/interfaces";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { FaStar } from "react-icons/fa6";
+import React from "react";
 import { IoMdPlayCircle } from "react-icons/io";
-import { MdFavorite } from "react-icons/md";
 
 const MovieCard: React.FC<MovieCardProp> = ({ data, path }) => {
   return (

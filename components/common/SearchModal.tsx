@@ -1,18 +1,33 @@
-import { movies } from "@/constants";
-import useFetch from "@/hooks/useFetch";
 import { SearchModalProps } from "@/interfaces";
 import axiosInstance from "@/services/axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiLoaderCircle } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 import { RiSearchLine } from "react-icons/ri";
 
+export interface SearchModalData {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
 const SearchModal: React.FC<SearchModalProps> = ({ action }) => {
-  const [search, setSearch] = useState("");
-  const [data, setData] = useState<any>("");
-  const [error, setError] = useState<any>("");
+  const [search, setSearch] = useState<string>("");
+  const [data, setData] = useState<SearchModalData[] | []>([]);
+
   const [loading, setLoading] = useState(false);
 
   const fetchData = async (search: string) => {
@@ -27,7 +42,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ action }) => {
       console.log(response.data);
       setData(response.data);
     } catch (error) {
-      setError(error);
+      console.error(error);
       console.log(error);
     } finally {
       setLoading(false);
@@ -83,7 +98,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ action }) => {
             </div>
           ) : (
             data &&
-            data?.map((data: any, index: number) => (
+            data?.map((data: SearchModalData, index: number) => (
               <div key={index} className="h-14 flex gap-2 ">
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`}
@@ -100,7 +115,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ action }) => {
                   >
                     {data?.title}
                   </Link>
-                  
                 </div>
               </div>
             ))

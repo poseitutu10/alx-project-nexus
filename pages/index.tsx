@@ -11,7 +11,8 @@ import { BiLoaderCircle } from "react-icons/bi";
 
 export default function Home() {
   const [index, setIndex] = useState<number>(0);
-  const [showMovie, setShowMovie] = useState<any>([]);
+  const [showMovie, setShowMovie] = useState<Movie>();
+  const [mainLoading, setMainLoading] = useState<boolean>(true);
   const router = useRouter();
 
   const { data, loading } = useFetch("/movies/", {
@@ -22,8 +23,23 @@ export default function Home() {
   useEffect(() => {
     if (index == 0) {
       setShowMovie(data?.data?.results[0]);
+      const MainLoader = setTimeout(() => {
+        setMainLoading(false);
+      }, 500);
     }
   }, [data]);
+
+  if (mainLoading) {
+    return (
+      <div className="w-full h-[30vh] flex items-center justify-center">
+        <BiLoaderCircle
+          size={30}
+          color="white"
+          className={`${loading ? "animate-spin" : "hidden"}`}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#171717] space-y-10 md:space-y-72 lg:space-y-60 w-full h-full">
@@ -58,12 +74,12 @@ export default function Home() {
                 {showMovie?.title}
               </h2>
               <div className="category space-x-3">
-                {showMovie?.genres?.map((data: any, i: number) => (
+                {showMovie?.genres?.map(({ name }, i: number) => (
                   <span
                     className="bg-white text-gray-800 p-2 rounded-2xl text-xs md:text-base"
                     key={i}
                   >
-                    {data.name}
+                    {name}
                   </span>
                 ))}
               </div>
@@ -89,7 +105,7 @@ export default function Home() {
         ) : (
           <div className="movieCard grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
             {movies?.slice(0, 9)?.map((data: Movie, index: number) => (
-              <MovieCard data={data} path={`/movie/${data.id}`} />
+              <MovieCard data={data} key={index} path={`/movie/${data.id}`} />
             ))}
           </div>
         )}

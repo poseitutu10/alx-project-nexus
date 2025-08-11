@@ -3,9 +3,11 @@ import List from "@/components/common/List";
 import { moviePic } from "@/constants";
 import useFetch from "@/hooks/useFetch";
 import { MovieDetails } from "@/interfaces";
+import axiosInstance from "@/services/axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { BiLoaderCircle } from "react-icons/bi";
 import { FaStar } from "react-icons/fa6";
 import { IoIosAdd } from "react-icons/io";
@@ -43,16 +45,31 @@ const Movie = () => {
     cast: "Tim Robbins, Rebecca Ferguson,  Avi Nash",
   };
   const [movie, setMovie] = useState<Movie>();
+  const [isAddFavorite, setIsAddFavorite] =useState<boolean>(false)
   const router = useRouter();
   const query = router.query;
 
-  const { data, loading, error } = useFetch("/movies/");
+  const { data, loading } = useFetch("/movies/");
   console.log(data?.data?.results);
+
+  const addFavorite = async (data: { movie_id?: number }) => {
+      console.log(data);
+      try {
+        const response = await axiosInstance.post("/movies/favorites/", data);
+        if(response.status == 201){
+          setIsAddFavorite(true)
+        }
+        console.log(response);
+        toast.success("Added to favorites");
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
   useEffect(() => {
     if (data) {
       const findMovie: Movie = data?.data?.results.find(
-        (content: any) => content.id == query.id
+        (content: Movie) => content.id == Number(query.id)
       );
       setMovie(findMovie);
     }
@@ -92,9 +109,10 @@ const Movie = () => {
               <div className="head flex justify-between items-center w-full">
                 <h2 className="text-xl md:text-3xl">{movie?.title}</h2>
                 <Button
-                  name="Add to Favorite"
+                  name={isAddFavorite ? `Added`:`Add to Favorite`}
                   styles="bg-red-500 text-white py-1 px-2 md:p-3 text-s md:text-base cursor-pointer md:font-semibold flex flex-row-reverse items-center md:gap-3 rounded-lg hover:opacity-90"
                   icon={<IoIosAdd size={25} />}
+                  action={()=> addFavorite({ movie_id: movie?.id })}
                 />
               </div>
               <div className="rest md:mt-7 xl:mt-14 flex flex-col md:flex-row gap-5 md:items-center">

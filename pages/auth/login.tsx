@@ -2,7 +2,6 @@ import Button from "@/components/common/Button";
 import AuthLayout from "@/components/layout/AuthLayout";
 import usePost from "@/hooks/usePost";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { BiHide, BiLoaderCircle, BiShow } from "react-icons/bi";
 
@@ -104,7 +103,7 @@ const Login: React.FC = () => {
           />
           <div className="flex items-center justify-center my-5">
             <p>
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href={`/auth/signup`} className="text-sky-500">
                 Sign up
               </Link>

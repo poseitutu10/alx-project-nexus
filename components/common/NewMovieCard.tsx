@@ -1,16 +1,14 @@
-import { anotherMoviePic } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 interface NewMovieCardProps {
-  data: { title: string; poster_path: string,   id?: number; };
+  data: { title: string; poster_path: string; id?: number };
   index: number;
   genre?: string;
-
 }
 
-const NewMovieCard: React.FC<NewMovieCardProps> = ({ data, index, genre}) => {
+const NewMovieCard: React.FC<NewMovieCardProps> = ({ data, index, genre }) => {
   return (
     <Link href={`/movie/genre/${data.id}`} key={index}>
       <div className="space-y-3">

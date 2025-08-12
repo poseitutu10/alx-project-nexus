@@ -43,8 +43,8 @@ export default function Home() {
 
   return (
     <div className="bg-[#171717] space-y-10 md:space-y-72 lg:space-y-60 w-full h-full">
-      <div className="w-full h-[70v] md:h-[50vh] ">
-        <div className="w-full h-full md:h-[70vh] relative">
+      <div className="w-full h-[60vh] md:h-[70vh] ">
+        <div className="w-full h-full relative">
           <Image
             src={`https://image.tmdb.org/t/p/w500${showMovie?.poster_path}`}
             width={800}

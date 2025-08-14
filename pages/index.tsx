@@ -49,7 +49,7 @@ export default function Home() {
             src={`https://image.tmdb.org/t/p/w500${showMovie?.poster_path}`}
             width={800}
             height={800}
-            priority
+            priority={true}
             style={{ objectFit: "cover", objectPosition: "center" }}
             alt="background"
             className="w-full h-full -z-10 inset-x-0 inset-y-0 brightness-50"

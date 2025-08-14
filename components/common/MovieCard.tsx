@@ -7,7 +7,7 @@ import { IoMdPlayCircle } from "react-icons/io";
 const MovieCard: React.FC<MovieCardProp> = ({ data, path }) => {
   return (
     <div className="">
-      <div className="h-[30vh] xl:h-[40vh] rounded-2xl overflow-hidden cursor-pointer relative group">
+      <div className="h-[40vh] rounded-2xl overflow-hidden cursor-pointer relative group">
         <Image
           src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
           width={300}

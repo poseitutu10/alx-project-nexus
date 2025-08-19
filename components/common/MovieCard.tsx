@@ -38,7 +38,7 @@ const MovieCard: React.FC<MovieCardProp> = ({ data, path }) => {
 
       <div className="flex justify-between my-2">
         <h2 className="md:text-lg text-white ">{data.title}</h2>
-        <div className="category flex space-x-3">
+        <div className="category flex flex-row gap-1 md:gap-3">
           {data?.genres?.slice(0, 3).map((genre, key: number) => {
             return (
               <span
